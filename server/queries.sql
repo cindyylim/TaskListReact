@@ -1,5 +1,4 @@
-CREATE TABLE notes (
+CREATE TABLE tasks (
 	id SERIAL PRIMARY KEY, 
-	title text,
-	metadata text
+	task text
 );

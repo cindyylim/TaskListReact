@@ -26,17 +26,16 @@ const db = new pg.Client({
 
 db.connect();
 
-async function getNotes() {
-  const res = await db.query("SELECT * FROM notes ORDER BY id ASC");
+async function getTasks() {
+  const res = await db.query("SELECT * FROM tasks ORDER BY id ASC");
   console.log(res.rows);
   return res.rows;
 }
 
-async function addNote(newNote) {
+async function addTask(newTask) {
   try {
-    const result = await db.query("INSERT INTO notes (title, metadata) VALUES ($1, $2) RETURNING *;", [
-      newNote.title,
-      newNote.content
+    const result = await db.query("INSERT INTO tasks (task) VALUES ($1) RETURNING *;", [
+      newTask.content
     ]);
     return result.rows[0];
   } catch (err) {
@@ -44,15 +43,15 @@ async function addNote(newNote) {
   }
 }
 
-async function deleteNote(id) {
+async function deleteTask(id) {
   try {
-    await db.query("DELETE FROM notes WHERE id = $1", [id]);
+    await db.query("DELETE FROM tasks WHERE id = $1", [id]);
   } catch (err) {
     console.log(err);
   }
 }
-app.get("/notes", (req, res) => {
-  getNotes()
+app.get("/tasks", (req, res) => {
+  getTasks()
     .then((response) => {
       res.status(200).send(response);
     })
@@ -61,8 +60,8 @@ app.get("/notes", (req, res) => {
     });
 });
 
-app.post("/newNote", (req, res) => {
-  addNote(req.body)
+app.post("/newTask", (req, res) => {
+  addTask(req.body)
     .then((response) => {
       res.status(200).send(response);
     })
@@ -71,8 +70,8 @@ app.post("/newNote", (req, res) => {
     });
 });
 
-app.delete("/note/:id", (req, res) => {
-  deleteNote(req.params.id)
+app.delete("/task/:id", (req, res) => {
+  deleteTask(req.params.id)
     .then((response) => {
       res.status(200).send(response);
     })

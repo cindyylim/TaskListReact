@@ -1,28 +1,26 @@
 import React, { useState } from "react";
-import NoteAddIcon from "@material-ui/icons/NoteAdd";
+import AddIcon from '@material-ui/icons/Add';
 import Fab from "@material-ui/core/Fab";
 import Zoom from "@material-ui/core/Zoom";
 
 function CreateArea(props) {
   const [isExpanded, setExpanded] = useState(false);
 
-  const [note, setNote] = useState({
-    title: "",
+  const [task, setTask] = useState({
     content: "",
   });
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setNote((prevNote) => {
-      return { ...prevNote, [name]: value };
+    setTask((prevTask) => {
+      return { ...prevTask, [name]: value };
     });
   }
 
-  function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
+  function submitTask(event) {
+    props.onAdd(task);
+    setTask({
       content: "",
     });
     event.preventDefault();
@@ -34,26 +32,18 @@ function CreateArea(props) {
 
   return (
     <div>
-      <form className="create-note">
-        {isExpanded && (
-          <input
-            name="title"
-            onChange={handleChange}
-            value={note.title}
-            placeholder="Title"
-          />
-        )}
+      <form className="create-task">
         <textarea
           name="content"
           onClick={expand}
           onChange={handleChange}
-          value={note.content}
-          placeholder="Take a note..."
+          value={task.content}
+          placeholder="Add your task"
           rows={isExpanded ? 3 : 1}
         />
         <Zoom in={isExpanded}>
-          <Fab onClick={submitNote} aria-label="add">
-            <NoteAddIcon />
+          <Fab onClick={submitTask} aria-label="add">
+            <AddIcon />
           </Fab>
         </Zoom>
       </form>

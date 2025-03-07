@@ -1,57 +1,54 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import Footer from "./Footer";
-import Note from "./Note";
+import Task from "./Task";
 import CreateArea from "./CreateArea";
 
 function App() {
-  const [notes, setNotes] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
-  async function getNotes() {
-    const response = await fetch("http://localhost:3001/notes");
+  async function getTasks() {
+    const response = await fetch("http://localhost:3001/tasks");
     const data = await response.text();
-    setNotes(eval(data));
+    setTasks(eval(data));
   }
 
-  async function addNote(newNote) {
-    const note = JSON.stringify(newNote);
-    const response = await fetch("http://localhost:3001/newNote", {
+  async function addTask(newTask) {
+    const task = JSON.stringify(newTask);
+    const response = await fetch("http://localhost:3001/newTask", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: note,
+      body: task,
     });
     await response.text();
-    getNotes();
+    getTasks();
   }
 
-  async function deleteNote(id) {
-    const response = await fetch(`http://localhost:3001/note/${id}`, {
+  async function deleteTask(id) {
+    const response = await fetch(`http://localhost:3001/task/${id}`, {
       method: "DELETE",
     });
     await response.text();
-    getNotes();
+    getTasks();
   }
 
   useEffect(() => {
-    getNotes();
+    getTasks();
   }, []);
 
   return (
     <div>
       <Header />
-      <CreateArea onAdd={addNote} />
-      {notes.map((noteItem) => (
-        <Note
-          key={noteItem.id}
-          id={noteItem.id}
-          title={noteItem.title}
-          content={noteItem.metadata}
-          onDelete={deleteNote}
+      <CreateArea onAdd={addTask} />
+      {tasks.map((t) => (
+        <Task
+          key={t.id}
+          id={t.id}
+          content={t.task}
+          onDelete={deleteTask}
         />
       ))}
-      <Footer />
     </div>
   );
 }
