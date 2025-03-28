@@ -87,8 +87,5 @@ The frontend will run on http://localhost:3000
   - React
   - Modern web technologies
 
-## License
-
-This project is licensed under the MIT License.
 
 <img width="1440" alt="Screenshot 2025-03-07 at 3 11 23 PM" src="https://github.com/user-attachments/assets/7ffecb23-7b0b-4663-b607-ec431bc77145" />
