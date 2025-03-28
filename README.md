@@ -58,7 +58,7 @@ CREATE TABLE tasks (
 1. Start the backend server:
 ```bash
 cd server
-npm start
+npm run dev
 ```
 The server will run on http://localhost:3001
 
