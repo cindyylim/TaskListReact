@@ -69,11 +69,6 @@ npm start
 ```
 The frontend will run on http://localhost:3000
 
-## API Endpoints
-
-- `GET /tasks` - Get all tasks
-- `POST /newTask` - Create a new task
-- `DELETE /task/:id` - Delete a task by ID
 
 ## Technologies Used
 
